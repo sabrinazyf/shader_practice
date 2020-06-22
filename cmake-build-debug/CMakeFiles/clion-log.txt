@@ -1,0 +1,4 @@
+"E:\Program Files\JetBrains\CLion 2020.1.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" E:\Users\sabrinazyf\CLionProjects\ShaderPractice
+-- Configuring done
+-- Generating done
+-- Build files have been written to: E:/Users/sabrinazyf/CLionProjects/ShaderPractice/cmake-build-debug
