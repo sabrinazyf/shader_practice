@@ -82,6 +82,30 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/Camera.cpp">
+			<Option target="ShaderPractice"/>
+		</Unit>
+		<Unit filename="E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/Camera.h">
+			<Option target="ShaderPractice"/>
+		</Unit>
+		<Unit filename="E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/Mesh.cpp">
+			<Option target="ShaderPractice"/>
+		</Unit>
+		<Unit filename="E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/Mesh.h">
+			<Option target="ShaderPractice"/>
+		</Unit>
+		<Unit filename="E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/Model.cpp">
+			<Option target="ShaderPractice"/>
+		</Unit>
+		<Unit filename="E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/Model.h">
+			<Option target="ShaderPractice"/>
+		</Unit>
+		<Unit filename="E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/Shader.cpp">
+			<Option target="ShaderPractice"/>
+		</Unit>
+		<Unit filename="E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/Shader.h">
+			<Option target="ShaderPractice"/>
+		</Unit>
 		<Unit filename="E:/Users/sabrinazyf/CLionProjects/ShaderPractice/src/glad.c">
 			<Option target="ShaderPractice"/>
 		</Unit>

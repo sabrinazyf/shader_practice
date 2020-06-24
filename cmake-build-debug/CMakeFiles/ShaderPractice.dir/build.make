@@ -84,21 +84,85 @@ CMakeFiles/ShaderPractice.dir/src/glad.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ShaderPractice.dir/src/glad.c.s"
 	E:\mingw64\mingw64\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S E:\Users\sabrinazyf\CLionProjects\ShaderPractice\src\glad.c -o CMakeFiles\ShaderPractice.dir\src\glad.c.s
 
+CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.obj: CMakeFiles/ShaderPractice.dir/flags.make
+CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.obj: CMakeFiles/ShaderPractice.dir/includes_CXX.rsp
+CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.obj: ../include/header/Mesh.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Users\sabrinazyf\CLionProjects\ShaderPractice\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.obj"
+	E:\mingw64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ShaderPractice.dir\include\header\Mesh.cpp.obj -c E:\Users\sabrinazyf\CLionProjects\ShaderPractice\include\header\Mesh.cpp
+
+CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.i"
+	E:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Users\sabrinazyf\CLionProjects\ShaderPractice\include\header\Mesh.cpp > CMakeFiles\ShaderPractice.dir\include\header\Mesh.cpp.i
+
+CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.s"
+	E:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\Users\sabrinazyf\CLionProjects\ShaderPractice\include\header\Mesh.cpp -o CMakeFiles\ShaderPractice.dir\include\header\Mesh.cpp.s
+
+CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.obj: CMakeFiles/ShaderPractice.dir/flags.make
+CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.obj: CMakeFiles/ShaderPractice.dir/includes_CXX.rsp
+CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.obj: ../include/header/Model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Users\sabrinazyf\CLionProjects\ShaderPractice\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.obj"
+	E:\mingw64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ShaderPractice.dir\include\header\Model.cpp.obj -c E:\Users\sabrinazyf\CLionProjects\ShaderPractice\include\header\Model.cpp
+
+CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.i"
+	E:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Users\sabrinazyf\CLionProjects\ShaderPractice\include\header\Model.cpp > CMakeFiles\ShaderPractice.dir\include\header\Model.cpp.i
+
+CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.s"
+	E:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\Users\sabrinazyf\CLionProjects\ShaderPractice\include\header\Model.cpp -o CMakeFiles\ShaderPractice.dir\include\header\Model.cpp.s
+
+CMakeFiles/ShaderPractice.dir/include/header/Shader.cpp.obj: CMakeFiles/ShaderPractice.dir/flags.make
+CMakeFiles/ShaderPractice.dir/include/header/Shader.cpp.obj: CMakeFiles/ShaderPractice.dir/includes_CXX.rsp
+CMakeFiles/ShaderPractice.dir/include/header/Shader.cpp.obj: ../include/header/Shader.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Users\sabrinazyf\CLionProjects\ShaderPractice\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ShaderPractice.dir/include/header/Shader.cpp.obj"
+	E:\mingw64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ShaderPractice.dir\include\header\Shader.cpp.obj -c E:\Users\sabrinazyf\CLionProjects\ShaderPractice\include\header\Shader.cpp
+
+CMakeFiles/ShaderPractice.dir/include/header/Shader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ShaderPractice.dir/include/header/Shader.cpp.i"
+	E:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Users\sabrinazyf\CLionProjects\ShaderPractice\include\header\Shader.cpp > CMakeFiles\ShaderPractice.dir\include\header\Shader.cpp.i
+
+CMakeFiles/ShaderPractice.dir/include/header/Shader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ShaderPractice.dir/include/header/Shader.cpp.s"
+	E:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\Users\sabrinazyf\CLionProjects\ShaderPractice\include\header\Shader.cpp -o CMakeFiles\ShaderPractice.dir\include\header\Shader.cpp.s
+
+CMakeFiles/ShaderPractice.dir/include/header/Camera.cpp.obj: CMakeFiles/ShaderPractice.dir/flags.make
+CMakeFiles/ShaderPractice.dir/include/header/Camera.cpp.obj: CMakeFiles/ShaderPractice.dir/includes_CXX.rsp
+CMakeFiles/ShaderPractice.dir/include/header/Camera.cpp.obj: ../include/header/Camera.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=E:\Users\sabrinazyf\CLionProjects\ShaderPractice\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/ShaderPractice.dir/include/header/Camera.cpp.obj"
+	E:\mingw64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ShaderPractice.dir\include\header\Camera.cpp.obj -c E:\Users\sabrinazyf\CLionProjects\ShaderPractice\include\header\Camera.cpp
+
+CMakeFiles/ShaderPractice.dir/include/header/Camera.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ShaderPractice.dir/include/header/Camera.cpp.i"
+	E:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E E:\Users\sabrinazyf\CLionProjects\ShaderPractice\include\header\Camera.cpp > CMakeFiles\ShaderPractice.dir\include\header\Camera.cpp.i
+
+CMakeFiles/ShaderPractice.dir/include/header/Camera.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ShaderPractice.dir/include/header/Camera.cpp.s"
+	E:\mingw64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S E:\Users\sabrinazyf\CLionProjects\ShaderPractice\include\header\Camera.cpp -o CMakeFiles\ShaderPractice.dir\include\header\Camera.cpp.s
+
 # Object files for target ShaderPractice
 ShaderPractice_OBJECTS = \
 "CMakeFiles/ShaderPractice.dir/src/main.cpp.obj" \
-"CMakeFiles/ShaderPractice.dir/src/glad.c.obj"
+"CMakeFiles/ShaderPractice.dir/src/glad.c.obj" \
+"CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.obj" \
+"CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.obj" \
+"CMakeFiles/ShaderPractice.dir/include/header/Shader.cpp.obj" \
+"CMakeFiles/ShaderPractice.dir/include/header/Camera.cpp.obj"
 
 # External object files for target ShaderPractice
 ShaderPractice_EXTERNAL_OBJECTS =
 
 ShaderPractice.exe: CMakeFiles/ShaderPractice.dir/src/main.cpp.obj
 ShaderPractice.exe: CMakeFiles/ShaderPractice.dir/src/glad.c.obj
+ShaderPractice.exe: CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.obj
+ShaderPractice.exe: CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.obj
+ShaderPractice.exe: CMakeFiles/ShaderPractice.dir/include/header/Shader.cpp.obj
+ShaderPractice.exe: CMakeFiles/ShaderPractice.dir/include/header/Camera.cpp.obj
 ShaderPractice.exe: CMakeFiles/ShaderPractice.dir/build.make
 ShaderPractice.exe: CMakeFiles/ShaderPractice.dir/linklibs.rsp
 ShaderPractice.exe: CMakeFiles/ShaderPractice.dir/objects1.rsp
 ShaderPractice.exe: CMakeFiles/ShaderPractice.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=E:\Users\sabrinazyf\CLionProjects\ShaderPractice\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable ShaderPractice.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=E:\Users\sabrinazyf\CLionProjects\ShaderPractice\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable ShaderPractice.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\ShaderPractice.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

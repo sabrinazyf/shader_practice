@@ -9,9 +9,9 @@ link_directories(lib)
 #MESSAGE(STATUS ${LIBHELLO_PATH} " found")
 
 add_executable(ShaderPractice src/main.cpp src/glad.c
-#        src/header/Mesh.cpp src/header/Mesh.h
-#        src/header/Model.cpp src/header/Model.h
-#        src/header/Shader.cpp src/header/Shader.h
-#        src/header/Camera.cpp src/header/Camera.h
+        include/header/Mesh.cpp include/header/Mesh.h
+        include/header/Model.cpp include/header/Model.h
+        include/header/Shader.cpp include/header/Shader.h
+        include/header/Camera.cpp include/header/Camera.h
         )
-target_link_libraries(ShaderPractice glew32 SOIL glfw3 gdi32 opengl32)
+target_link_libraries(ShaderPractice glew32 glfw3 gdi32 opengl32 assimp)
