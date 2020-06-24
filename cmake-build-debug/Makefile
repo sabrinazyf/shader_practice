@@ -230,6 +230,33 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/tools/ActionListener.obj: src/tools/ActionListener.cpp.obj
+
+.PHONY : src/tools/ActionListener.obj
+
+# target to build an object file
+src/tools/ActionListener.cpp.obj:
+	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/src/tools/ActionListener.cpp.obj
+.PHONY : src/tools/ActionListener.cpp.obj
+
+src/tools/ActionListener.i: src/tools/ActionListener.cpp.i
+
+.PHONY : src/tools/ActionListener.i
+
+# target to preprocess a source file
+src/tools/ActionListener.cpp.i:
+	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/src/tools/ActionListener.cpp.i
+.PHONY : src/tools/ActionListener.cpp.i
+
+src/tools/ActionListener.s: src/tools/ActionListener.cpp.s
+
+.PHONY : src/tools/ActionListener.s
+
+# target to generate assembly for a file
+src/tools/ActionListener.cpp.s:
+	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/src/tools/ActionListener.cpp.s
+.PHONY : src/tools/ActionListener.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -251,6 +278,9 @@ help:
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s
+	@echo ... src/tools/ActionListener.obj
+	@echo ... src/tools/ActionListener.i
+	@echo ... src/tools/ActionListener.s
 .PHONY : help
 
 

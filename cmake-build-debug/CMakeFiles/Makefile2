@@ -73,12 +73,12 @@ clean: CMakeFiles/ShaderPractice.dir/clean
 CMakeFiles/ShaderPractice.dir/all:
 	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/depend
 	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=E:\Users\sabrinazyf\CLionProjects\ShaderPractice\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5 "Built target ShaderPractice"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=E:\Users\sabrinazyf\CLionProjects\ShaderPractice\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6 "Built target ShaderPractice"
 .PHONY : CMakeFiles/ShaderPractice.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ShaderPractice.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start E:\Users\sabrinazyf\CLionProjects\ShaderPractice\cmake-build-debug\CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\Users\sabrinazyf\CLionProjects\ShaderPractice\cmake-build-debug\CMakeFiles 6
 	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/ShaderPractice.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start E:\Users\sabrinazyf\CLionProjects\ShaderPractice\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/ShaderPractice.dir/rule

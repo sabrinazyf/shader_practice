@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ShaderPractice.dir/include/header/Shader.cpp.obj"
   "CMakeFiles/ShaderPractice.dir/src/glad.c.obj"
   "CMakeFiles/ShaderPractice.dir/src/main.cpp.obj"
+  "CMakeFiles/ShaderPractice.dir/src/tools/ActionListener.cpp.obj"
   "ShaderPractice.exe"
   "ShaderPractice.exe.manifest"
   "ShaderPractice.pdb"
