@@ -149,60 +149,6 @@ include/header/Camera.cpp.s:
 	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/include/header/Camera.cpp.s
 .PHONY : include/header/Camera.cpp.s
 
-include/header/Mesh.obj: include/header/Mesh.cpp.obj
-
-.PHONY : include/header/Mesh.obj
-
-# target to build an object file
-include/header/Mesh.cpp.obj:
-	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.obj
-.PHONY : include/header/Mesh.cpp.obj
-
-include/header/Mesh.i: include/header/Mesh.cpp.i
-
-.PHONY : include/header/Mesh.i
-
-# target to preprocess a source file
-include/header/Mesh.cpp.i:
-	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.i
-.PHONY : include/header/Mesh.cpp.i
-
-include/header/Mesh.s: include/header/Mesh.cpp.s
-
-.PHONY : include/header/Mesh.s
-
-# target to generate assembly for a file
-include/header/Mesh.cpp.s:
-	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.s
-.PHONY : include/header/Mesh.cpp.s
-
-include/header/Model.obj: include/header/Model.cpp.obj
-
-.PHONY : include/header/Model.obj
-
-# target to build an object file
-include/header/Model.cpp.obj:
-	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.obj
-.PHONY : include/header/Model.cpp.obj
-
-include/header/Model.i: include/header/Model.cpp.i
-
-.PHONY : include/header/Model.i
-
-# target to preprocess a source file
-include/header/Model.cpp.i:
-	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.i
-.PHONY : include/header/Model.cpp.i
-
-include/header/Model.s: include/header/Model.cpp.s
-
-.PHONY : include/header/Model.s
-
-# target to generate assembly for a file
-include/header/Model.cpp.s:
-	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.s
-.PHONY : include/header/Model.cpp.s
-
 include/header/Shader.obj: include/header/Shader.cpp.obj
 
 .PHONY : include/header/Shader.obj
@@ -296,12 +242,6 @@ help:
 	@echo ... include/header/Camera.obj
 	@echo ... include/header/Camera.i
 	@echo ... include/header/Camera.s
-	@echo ... include/header/Mesh.obj
-	@echo ... include/header/Mesh.i
-	@echo ... include/header/Mesh.s
-	@echo ... include/header/Model.obj
-	@echo ... include/header/Model.i
-	@echo ... include/header/Model.s
 	@echo ... include/header/Shader.obj
 	@echo ... include/header/Shader.i
 	@echo ... include/header/Shader.s

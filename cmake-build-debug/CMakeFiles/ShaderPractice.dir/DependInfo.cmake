@@ -15,8 +15,6 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/Camera.cpp" "E:/Users/sabrinazyf/CLionProjects/ShaderPractice/cmake-build-debug/CMakeFiles/ShaderPractice.dir/include/header/Camera.cpp.obj"
-  "E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/Mesh.cpp" "E:/Users/sabrinazyf/CLionProjects/ShaderPractice/cmake-build-debug/CMakeFiles/ShaderPractice.dir/include/header/Mesh.cpp.obj"
-  "E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/Model.cpp" "E:/Users/sabrinazyf/CLionProjects/ShaderPractice/cmake-build-debug/CMakeFiles/ShaderPractice.dir/include/header/Model.cpp.obj"
   "E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/Shader.cpp" "E:/Users/sabrinazyf/CLionProjects/ShaderPractice/cmake-build-debug/CMakeFiles/ShaderPractice.dir/include/header/Shader.cpp.obj"
   "E:/Users/sabrinazyf/CLionProjects/ShaderPractice/src/main.cpp" "E:/Users/sabrinazyf/CLionProjects/ShaderPractice/cmake-build-debug/CMakeFiles/ShaderPractice.dir/src/main.cpp.obj"
   )
