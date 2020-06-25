@@ -13,7 +13,7 @@ Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture
     setupMesh();
 }
 
-void Mesh::Draw(Shader &shader) {
+void Mesh::Draw(Shader_m &shader) {
     // bind appropriate textures
     unsigned int diffuseNr  = 1;
     unsigned int specularNr = 1;

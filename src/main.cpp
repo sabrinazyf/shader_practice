@@ -7,9 +7,11 @@
 
 #include <header/Shader_m.h>
 #include <header/Camera.h>
+#include <header/GLTFModel.h>
 
 #include <iostream>
 #include "tools/ActionListener.h"
+
 
 using namespace std;
 
@@ -38,6 +40,9 @@ float lastFrame = 0.0f;
 glm::vec3 lightPos;
 
 int main() {
+
+    GLTFModel model("../Resource/Model/StanfordDragon/stanford-dragon.gltf");
+
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
