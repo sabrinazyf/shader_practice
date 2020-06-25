@@ -149,33 +149,6 @@ include/header/Camera.cpp.s:
 	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/include/header/Camera.cpp.s
 .PHONY : include/header/Camera.cpp.s
 
-include/header/GLTFModel.obj: include/header/GLTFModel.cpp.obj
-
-.PHONY : include/header/GLTFModel.obj
-
-# target to build an object file
-include/header/GLTFModel.cpp.obj:
-	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/include/header/GLTFModel.cpp.obj
-.PHONY : include/header/GLTFModel.cpp.obj
-
-include/header/GLTFModel.i: include/header/GLTFModel.cpp.i
-
-.PHONY : include/header/GLTFModel.i
-
-# target to preprocess a source file
-include/header/GLTFModel.cpp.i:
-	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/include/header/GLTFModel.cpp.i
-.PHONY : include/header/GLTFModel.cpp.i
-
-include/header/GLTFModel.s: include/header/GLTFModel.cpp.s
-
-.PHONY : include/header/GLTFModel.s
-
-# target to generate assembly for a file
-include/header/GLTFModel.cpp.s:
-	$(MAKE) -f CMakeFiles\ShaderPractice.dir\build.make CMakeFiles/ShaderPractice.dir/include/header/GLTFModel.cpp.s
-.PHONY : include/header/GLTFModel.cpp.s
-
 include/header/Mesh.obj: include/header/Mesh.cpp.obj
 
 .PHONY : include/header/Mesh.obj
@@ -323,9 +296,6 @@ help:
 	@echo ... include/header/Camera.obj
 	@echo ... include/header/Camera.i
 	@echo ... include/header/Camera.s
-	@echo ... include/header/GLTFModel.obj
-	@echo ... include/header/GLTFModel.i
-	@echo ... include/header/GLTFModel.s
 	@echo ... include/header/Mesh.obj
 	@echo ... include/header/Mesh.i
 	@echo ... include/header/Mesh.s

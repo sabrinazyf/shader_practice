@@ -1,24 +1,18 @@
 #ifndef SHADERPRACTICE_GLTFMODEL_H
 #define SHADERPRACTICE_GLTFMODEL_H
-#define STB_IMAGE_IMPLEMENTATION
 #include <glad/glad.h>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <stb_image.h>
-//#include <assimp/Importer.hpp>
-//#include <assimp/scene.h>
-//#include <assimp/postprocess.h>
-
 #include "Mesh.h"
 #include "Shader_m.h"
-
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <map>
 #include <vector>
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 using namespace std;
 
 unsigned int TextureFromFile(const char *path, const string &directory, bool gamma = false);
@@ -33,7 +27,9 @@ public:
     bool gammaCorrection;
 
     // constructor, expects a filepath to a 3D model.
-    GLTFModel(string const &path, bool gamma = false);
+    GLTFModel(string const &path, bool gamma = false){
+        loadModel(path);
+    }
 
     // draws the model, and thus all its meshes
     void Draw(Shader_m &shader);
@@ -42,6 +38,7 @@ private:
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
     void loadModel(string const &path)
     {
+        cout<<"load model new"<<endl;
 //        // read file via ASSIMP
 //        Assimp::Importer importer;
 //        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
@@ -102,7 +99,6 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
         std::cout << "Texture failed to load at path: " << path << std::endl;
         stbi_image_free(data);
     }
-
     return textureID;
 }
 #endif //SHADERPRACTICE_GLTFMODEL_H

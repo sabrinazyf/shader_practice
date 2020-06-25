@@ -18,6 +18,6 @@ add_executable(ShaderPractice src/main.cpp src/glad.c
         include/header/Shader_s.h
         src/tools/ActionListener.cpp src/tools/ActionListener.h
         include/header/Camera.cpp include/header/Camera.h
-        include/header/GLTFModel.cpp include/header/GLTFModel.h
+        include/header/GLTFModel.h
         )
 target_link_libraries(ShaderPractice glew32 glfw3 gdi32 opengl32)

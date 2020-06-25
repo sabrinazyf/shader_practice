@@ -88,9 +88,6 @@
 		<Unit filename="E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/Camera.h">
 			<Option target="ShaderPractice"/>
 		</Unit>
-		<Unit filename="E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/GLTFModel.cpp">
-			<Option target="ShaderPractice"/>
-		</Unit>
 		<Unit filename="E:/Users/sabrinazyf/CLionProjects/ShaderPractice/include/header/GLTFModel.h">
 			<Option target="ShaderPractice"/>
 		</Unit>
