@@ -1,3 +1,0 @@
-"E:\Program Files\JetBrains\CLion 2020.1.2\bin\cmake\win\bin\cmake.exe" -E remove -f CMakeFiles\ShaderPractice.dir/objects.a
-E:\mingw64\mingw64\bin\ar.exe cr CMakeFiles\ShaderPractice.dir/objects.a @CMakeFiles\ShaderPractice.dir\objects1.rsp
-E:\mingw64\mingw64\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\ShaderPractice.dir/objects.a -Wl,--no-whole-archive  -o ShaderPractice.exe -Wl,--out-implib,libShaderPractice.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\ShaderPractice.dir\linklibs.rsp

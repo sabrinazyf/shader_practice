@@ -1,3 +1,0 @@
-E:/Users/sabrinazyf/CLionProjects/ShaderPractice/cmake-build-debug/CMakeFiles/ShaderPractice.dir
-E:/Users/sabrinazyf/CLionProjects/ShaderPractice/cmake-build-debug/CMakeFiles/edit_cache.dir
-E:/Users/sabrinazyf/CLionProjects/ShaderPractice/cmake-build-debug/CMakeFiles/rebuild_cache.dir
