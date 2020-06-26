@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+
 using namespace std;
 
 struct Vertex {
@@ -34,9 +35,9 @@ struct Texture {
 class Mesh {
 public:
     // mesh Data
-    vector<Vertex>       vertices;
+    vector<Vertex> vertices;
     vector<unsigned int> indices;
-    vector<Texture>      textures;
+    vector<Texture> textures;
     unsigned int VAO;
 
     // constructor
@@ -45,6 +46,13 @@ public:
     // render the mesh
     void Draw(Shader_m &shader);
 
+//    float* getVerticesArray() {
+//        float verticesArray[vertices.size() * 3];
+//        for(int i=0;i<vertices.size();i++){
+//            verticesArray[i*3] = vertices.
+//        }
+//    }
+
 private:
     // render data 
     unsigned int VBO, EBO;
@@ -52,4 +60,5 @@ private:
     // initializes all the buffer objects/arrays
     void setupMesh();
 };
+
 #endif

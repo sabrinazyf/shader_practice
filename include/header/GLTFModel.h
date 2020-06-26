@@ -33,13 +33,16 @@ public:
 
     // constructor, expects a filepath to a 3D model.
     GLTFModel(string const &path, string const &binPath, bool gamma = false) {
+        directory = path;
+        gammaCorrection = gamma;
         loadModel(path, binPath);
     }
 
     // draws the model, and thus all its meshes
     void Draw(Shader_m &shader) {
-        for (unsigned int i = 0; i < meshes.size(); i++)
-            meshes[i].Draw(shader);
+//        for (unsigned int i = 0; i < meshes.size(); i++)
+//            meshes[i].Draw(shader);
+        meshes[0].Draw(shader);
     }
 
 private:
@@ -65,11 +68,9 @@ private:
         if (!ret) {
             printf("Failed to parse glTF\n");
         }
-//        bindModel(model);
 
         // 读取.bin文件（有可能也不需要在这读）
-        std::ifstream f = ifstream(binPath, std::ios::binary);
-        int membercount = 0;
+//        std::ifstream f = ifstream(binPath, std::ios::binary);
         // 对于包含在model里的每一个mesh
         for (int i = 0; i < model.meshes.size(); ++i) {
             tinygltf::Mesh mesh = model.meshes[i];
@@ -81,6 +82,8 @@ private:
             vector<glm::vec3> normal;
             // 贴图坐标
             vector<glm::vec2> texcoord;
+            // 偏移坐标
+            vector<glm::vec3> tangent;
             // 索引坐标（三角形的三个顶点的索引）
             vector<unsigned int> indices;
             //贴图
@@ -113,6 +116,24 @@ private:
 //            },
             // 简单的数据解读和强制按位置读取的教程：https://blog.csdn.net/qq_31709249/article/details/86535797
             for (const tinygltf::Primitive &primitive : mesh.primitives) {
+
+                const tinygltf::Accessor &accessor = model.accessors[primitive.indices];
+                const tinygltf::BufferView &bufferView = model.bufferViews[accessor.bufferView];
+                const tinygltf::Buffer &buffer = model.buffers[bufferView.buffer];
+                const short *thisIndices = reinterpret_cast<const short *>(&buffer.data[bufferView.byteOffset +
+                                                                                        accessor.byteOffset]);
+                for (size_t ii = 0; ii < accessor.count; ++ii) {
+                    int a = thisIndices[ii] & 0xffff;
+//                    if (thisIndices[i] < 0) {
+//                        std::cout << "(" << thisIndices[i] << ")";
+//                    }
+//                    if (i < 30) {
+//                    std::cout << a << ",";
+//                    if ((i + 1) % 3 == 0) cout << endl;
+//                    }
+                    indices.push_back(a);
+                }
+
                 for (const std::pair<const std::string, int> &attribute : primitive.attributes) {
                     const tinygltf::Accessor &accessor = model.accessors[attribute.second];
                     const tinygltf::BufferView &bufferView = model.bufferViews[accessor.bufferView];
@@ -129,18 +150,19 @@ private:
                                                                                               accessor.byteOffset]);
                         // From here, you choose what you wish to do with this position data. In this case, we  will display it out.
                         // 存储读取出的数据，并print出前10个数据
-                        for (size_t i = 0; i < accessor.count; ++i) {
+                        cout << accessor.count << endl;
+                        for (size_t ii = 0; ii < accessor.count; ++ii) {
                             // Positions are Vec3 components, so for each vec3 stride, offset for x, y, and z.
-                            if (i < 10) {
-                                std::cout << "(" << positions[i * 3 + 0] << ", "// x
-                                          << positions[i * 3 + 1] << ", " // y
-                                          << positions[i * 3 + 2] << ")" // z
-                                          << "\n";
-                            }
+//                            if (i < 10) {
+//                                std::cout << "(" << positions[i * 3 + 0] << ", "// x
+//                                          << positions[i * 3 + 1] << ", " // y
+//                                          << positions[i * 3 + 2] << ")" // z
+//                                          << "\n";
+//                            }
                             glm::vec3 thisPos;
-                            thisPos.x = positions[i * 3 + 0];
-                            thisPos.y = positions[i * 3 + 1];
-                            thisPos.z = positions[i * 3 + 2];
+                            thisPos.x = positions[ii * 3 + 0];
+                            thisPos.y = positions[ii * 3 + 1];
+                            thisPos.z = positions[ii * 3 + 2];
                             pos.push_back(thisPos);
                         }
                     }
@@ -149,105 +171,72 @@ private:
                         // you should already know how the data needs to be interpreted.
                         const float *normals = reinterpret_cast<const float *>(&buffer.data[bufferView.byteOffset +
                                                                                             accessor.byteOffset]);
-                        for (size_t i = 0; i < accessor.count; ++i) {
-                            if (i < 10) {
-                                std::cout << "(" << normals[i * 3 + 0] << ", "// x
-                                          << normals[i * 3 + 1] << ", " // y
-                                          << normals[i * 3 + 2] << ")" // z
-                                          << "\n";
-                            }
+                        for (size_t ii = 0; ii < accessor.count; ++ii) {
+//                            if (i < 10) {
+//                                std::cout << "(" << normals[i * 3 + 0] << ", "// x
+//                                          << normals[i * 3 + 1] << ", " // y
+//                                          << normals[i * 3 + 2] << ")" // z
+//                                          << "\n";
+//                            }
                             glm::vec3 thisN;
-                            thisN.x = normals[i * 3 + 0];
-                            thisN.y = normals[i * 3 + 1];
-                            thisN.z = normals[i * 3 + 2];
+                            thisN.x = normals[ii * 3 + 0];
+                            thisN.y = normals[ii * 3 + 1];
+                            thisN.z = normals[ii * 3 + 2];
                             normal.push_back(thisN);
                         }
                     }
+
+                    if ((attribute.first == "TANGENT")) {
+                        // bufferView byteoffset + accessor byteoffset tells you where the actual position data is within the buffer. From there
+                        // you should already know how the data needs to be interpreted.
+                        const float *tan = reinterpret_cast<const float *>(&buffer.data[bufferView.byteOffset +
+                                                                                        accessor.byteOffset]);
+                        for (size_t ii = 0; ii < accessor.count; ++ii) {
+//                            if (i < 10) {
+//                                std::cout << "(" << normals[i * 3 + 0] << ", "// x
+//                                          << normals[i * 3 + 1] << ", " // y
+//                                          << normals[i * 3 + 2] << ")" // z
+//                                          << "\n";
+//                            }
+                            glm::vec3 thisT;
+                            thisT.x = tan[ii * 4 + 0];
+                            thisT.y = tan[ii * 4 + 1];
+                            thisT.z = tan[ii * 4 + 2];
+                            tangent.push_back(thisT);
+                        }
+                    }
+
                     if ((attribute.first == "TEXCOORD_0")) {
                         // bufferView byteoffset + accessor byteoffset tells you where the actual position data is within the buffer. From there
                         // you should already know how the data needs to be interpreted.
                         const float *texc = reinterpret_cast<const float *>(&buffer.data[bufferView.byteOffset +
                                                                                          accessor.byteOffset]);
-                        for (size_t i = 0; i < accessor.count; ++i) {
-                            if (i < 10) {
-                                std::cout << "(" << texc[i * 3 + 0] << ", "// x
-                                          << texc[i * 3 + 1] << ", " // y
-                                          << "\n";
-                            }
+                        for (size_t ii = 0; ii < accessor.count; ++ii) {
+//                            if (i < 10) {
+//                                std::cout << "(" << texc[i * 3 + 0] << ", "// x
+//                                          << texc[i * 3 + 1] << ")" // y
+//                                          << "\n";
+//                            }
                             glm::vec2 thisTexc;
-                            thisTexc.x = texc[i * 3 + 0];
-                            thisTexc.y = texc[i * 3 + 1];
+                            thisTexc.x = texc[ii * 2 + 0];
+                            thisTexc.y = texc[ii * 2 + 1];
                             texcoord.push_back(thisTexc);
                         }
                     }
                     // 在这可以帮忙检查一下三个vector有没有成功存储到数据了
                 }
             }
-
-        }
-    }
-
-    void bindModel(tinygltf::Model &model) {
-        const tinygltf::Scene &scene = model.scenes[model.defaultScene];
-        for (size_t i = 0; i < scene.nodes.size(); ++i) {
-            assert((scene.nodes[i] >= 0) && (scene.nodes[i] < model.nodes.size()));
-            bindModelNodes(model, model.nodes[scene.nodes[i]]);
-        }
-    }
-
-    void bindModelNodes(tinygltf::Model &model, tinygltf::Node &node) {
-        if ((node.mesh >= 0) && (node.mesh < model.meshes.size())) {
-            bindMesh(model, model.meshes[node.mesh]);
-        }
-
-        for (size_t i = 0; i < node.children.size(); i++) {
-            assert((node.children[i] >= 0) && (node.children[i] < model.nodes.size()));
-            bindModelNodes(model, model.nodes[node.children[i]]);
-        }
-    }
-
-    void bindMesh(tinygltf::Model &model, tinygltf::Mesh &mesh) {
-        for (size_t i = 0; i < model.bufferViews.size(); ++i) {
-            const tinygltf::BufferView &bufferView = model.bufferViews[i];
-            if (bufferView.target == 0) {  // TODO impl drawarrays
-                std::cout << "WARN: bufferView.target is zero" << std::endl;
-                continue;  // Unsupported bufferView.
+            for (int ii = 0; ii < pos.size(); ii++) {
+                Vertex vertex{};
+                vertex.Position = pos.at(ii);
+                vertex.Normal = normal.at(ii);
+                vertex.TexCoords = texcoord.at(ii);
+                vertex.Tangent = tangent.at(ii);
+                vertices.push_back(vertex);
             }
-
-            const tinygltf::Buffer &buffer = model.buffers[bufferView.buffer];
-
-//            glBufferData(bufferView.target, bufferView.byteLength,
-//                         &buffer.data.at(0) + bufferView.byteOffset, GL_STATIC_DRAW);
-
-            cout << &buffer.data.at(0) + bufferView.byteOffset << " ";
-            cout << bufferView.byteLength << " " << endl;
-        }
-
-        cout << endl;
-
-        for (size_t i = 0; i < mesh.primitives.size(); ++i) {
-            tinygltf::Primitive primitive = mesh.primitives[i];
-            tinygltf::Accessor indexAccessor = model.accessors[primitive.indices];
-
-            for (auto &attrib : primitive.attributes) {
-                tinygltf::Accessor accessor = model.accessors[attrib.second];
-                int byteStride =
-                        accessor.ByteStride(model.bufferViews[accessor.bufferView]);
-
-                int size = 1;
-                if (accessor.type != TINYGLTF_TYPE_SCALAR) {
-                    size = accessor.type;
-                }
-            }
-
-            if (model.textures.size() > 0) {
-                // fixme: Use material's baseColor
-                tinygltf::Texture &tex = model.textures[0];
-
-                if (tex.source > -1) {
-                    tinygltf::Image &image = model.images[tex.source];
-                }
-            }
+            Mesh thisMesh(vertices, indices, textures);
+            meshes.emplace_back(thisMesh);
+            cout<<"Push one mesh"<<endl;
         }
     }
 };
