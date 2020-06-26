@@ -27,13 +27,6 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-// camera
-//float lastX = SCR_WIDTH / 2.0f;
-//float lastY = SCR_HEIGHT / 2.0f;
-//bool firstMouse = true;
-
-// timing
-//float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 // lighting
@@ -41,7 +34,8 @@ glm::vec3 lightPos;
 
 int main() {
 
-    GLTFModel model("../Resource/Model/StanfordDragon/stanford-dragon.gltf");
+    GLTFModel model("../Resource/Model/StandfordDragon/stanford-dragon.gltf",
+                    "../Resource/Model/StandfordDragon/stanford-dragon.bin");
 
     // glfw: initialize and configure
     // ------------------------------
@@ -79,7 +73,8 @@ int main() {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-
+    // tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
+    stbi_set_flip_vertically_on_load(true);
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);

@@ -553,7 +553,10 @@ CMakeFiles/ShaderPractice.dir/src/main.cpp.obj: ../include/header/Camera.h
 CMakeFiles/ShaderPractice.dir/src/main.cpp.obj: ../include/header/GLTFModel.h
 CMakeFiles/ShaderPractice.dir/src/main.cpp.obj: ../include/header/Mesh.h
 CMakeFiles/ShaderPractice.dir/src/main.cpp.obj: ../include/header/Shader_m.h
+CMakeFiles/ShaderPractice.dir/src/main.cpp.obj: ../include/json.hpp
 CMakeFiles/ShaderPractice.dir/src/main.cpp.obj: ../include/stb_image.h
+CMakeFiles/ShaderPractice.dir/src/main.cpp.obj: ../include/stb_image_write.h
+CMakeFiles/ShaderPractice.dir/src/main.cpp.obj: ../include/tiny_gltf.h
 CMakeFiles/ShaderPractice.dir/src/main.cpp.obj: ../src/main.cpp
 CMakeFiles/ShaderPractice.dir/src/main.cpp.obj: ../src/tools/ActionListener.h
 

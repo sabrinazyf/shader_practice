@@ -554,7 +554,10 @@ CMakeFiles/ShaderPractice.dir/src/main.cpp.obj
  ../include/header/GLTFModel.h
  ../include/header/Mesh.h
  ../include/header/Shader_m.h
+ ../include/json.hpp
  ../include/stb_image.h
+ ../include/stb_image_write.h
+ ../include/tiny_gltf.h
  E:/Users/sabrinazyf/CLionProjects/ShaderPractice/src/main.cpp
  E:/Users/sabrinazyf/CLionProjects/ShaderPractice/src/tools/ActionListener.h
 CMakeFiles/ShaderPractice.dir/src/tools/ActionListener.cpp.obj
