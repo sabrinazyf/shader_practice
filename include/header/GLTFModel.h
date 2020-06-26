@@ -93,17 +93,42 @@ private:
             // *在Dragon模型中，顶点的个数为6万多个，对应的点的位置、法线、贴图坐标也是6万多个
             // *这个dragon模型的gltf分为两部分，第一部分是龙，第二部分是一个平面
             // accessors的0-4项属于龙，5-9项属于平面
+
+//            mesh的结构：
+//            {
+//                "name" : "default",
+//                        "primitives" : [
+//                {
+//                    "attributes" : {
+//                                "NORMAL" : 2,
+//                                "POSITION" : 1,
+//                                "TANGENT" : 3,
+//                                "TEXCOORD_0" : 4
+//                    },
+//                    "indices" : 0,  目前我需要获取到这个对应的array buffer并转换为int型数组，但是找不到教程，
+//                                    强制按位置读取出来的是short，直接强制类型转换会出现负数值
+//                            "material" : 1
+//                }
+//                ]
+//            },
+            // 简单的数据解读和强制按位置读取的教程：https://blog.csdn.net/qq_31709249/article/details/86535797
             for (const tinygltf::Primitive &primitive : mesh.primitives) {
                 for (const std::pair<const std::string, int> &attribute : primitive.attributes) {
                     const tinygltf::Accessor &accessor = model.accessors[attribute.second];
                     const tinygltf::BufferView &bufferView = model.bufferViews[accessor.bufferView];
                     const tinygltf::Buffer &buffer = model.buffers[bufferView.buffer];
+                    // 这个attribute代表了点的位置POSITION
+                    // 下面均copy and paste 来自 https://github.com/syoyo/tinygltf/issues/71
+
+                    //下面分别获取position，normal和texcoord的数据
                     if ((attribute.first == "POSITION")) {
                         // bufferView byteoffset + accessor byteoffset tells you where the actual position data is within the buffer. From there
                         // you should already know how the data needs to be interpreted.
+                        // 拿来存放从buffer获取到的数组的，buffer从.uri
                         const float *positions = reinterpret_cast<const float *>(&buffer.data[bufferView.byteOffset +
                                                                                               accessor.byteOffset]);
                         // From here, you choose what you wish to do with this position data. In this case, we  will display it out.
+                        // 存储读取出的数据，并print出前10个数据
                         for (size_t i = 0; i < accessor.count; ++i) {
                             // Positions are Vec3 components, so for each vec3 stride, offset for x, y, and z.
                             if (i < 10) {
@@ -155,6 +180,7 @@ private:
                             texcoord.push_back(thisTexc);
                         }
                     }
+                    // 在这可以帮忙检查一下三个vector有没有成功存储到数据了
                 }
             }
 
