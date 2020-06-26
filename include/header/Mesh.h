@@ -20,10 +20,6 @@ struct Vertex {
     glm::vec3 Normal;
     // texCoords
     glm::vec2 TexCoords;
-    // tangent
-    glm::vec3 Tangent;
-    // bitangent
-    glm::vec3 Bitangent;
 };
 
 struct Texture {
@@ -36,7 +32,7 @@ class Mesh {
 public:
     // mesh Data
     vector<Vertex> vertices;
-    vector<unsigned int> indices;
+    vector<GLuint> indices;
     vector<Texture> textures;
     unsigned int VAO;
 
@@ -44,7 +40,7 @@ public:
     Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
 
     // render the mesh
-    void Draw(Shader_m &shader);
+    void Draw(Shader_m &shader) const;
 
 //    float* getVerticesArray() {
 //        float verticesArray[vertices.size() * 3];
@@ -54,7 +50,7 @@ public:
 //    }
 
 private:
-    // render data 
+    // render data
     unsigned int VBO, EBO;
 
     // initializes all the buffer objects/arrays

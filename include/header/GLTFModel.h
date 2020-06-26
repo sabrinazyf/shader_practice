@@ -29,25 +29,35 @@ public:
     vector<Texture> textures_loaded;    // stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
     vector<Mesh> meshes;
     string directory;
-    bool gammaCorrection;
+    bool gammaCorrection{};
 
     // constructor, expects a filepath to a 3D model.
-    GLTFModel(string const &path, string const &binPath, bool gamma = false) {
+    explicit GLTFModel(string const &path, bool gamma = false) {
         directory = path;
         gammaCorrection = gamma;
-        loadModel(path, binPath);
+        loadModel(path);
+    }
+
+    GLTFModel(Mesh &mesh, bool gamma = false) {
+        meshes.push_back(mesh);
     }
 
     // draws the model, and thus all its meshes
     void Draw(Shader_m &shader) {
-//        for (unsigned int i = 0; i < meshes.size(); i++)
-//            meshes[i].Draw(shader);
-        meshes[0].Draw(shader);
+        for (unsigned int i = 0; i < meshes.size(); i++)
+            meshes[i].Draw(shader);
+//        meshes[0].Draw(shader);
+    }
+
+    void Draw(vector<Shader_m> &shader) {
+        for (unsigned int i = 0; i < meshes.size(); i++)
+            meshes[i].Draw(shader.at(i));
+//        meshes[0].Draw(shader);
     }
 
 private:
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
-    void loadModel(string const &path, string const &binPath) {
+    void loadModel(string const &path) {
 //        fx::gltf::Document helmet = fx::gltf::LoadFromText(path);
         tinygltf::Model model;
         tinygltf::TinyGLTF loader;
@@ -69,8 +79,6 @@ private:
             printf("Failed to parse glTF\n");
         }
 
-        // 读取.bin文件（有可能也不需要在这读）
-//        std::ifstream f = ifstream(binPath, std::ios::binary);
         // 对于包含在model里的每一个mesh
         for (int i = 0; i < model.meshes.size(); ++i) {
             tinygltf::Mesh mesh = model.meshes[i];
@@ -85,7 +93,7 @@ private:
             // 偏移坐标
             vector<glm::vec3> tangent;
             // 索引坐标（三角形的三个顶点的索引）
-            vector<unsigned int> indices;
+            vector<GLuint> indices;
             //贴图
             vector<Texture> textures;
 
@@ -120,24 +128,17 @@ private:
                 const tinygltf::Accessor &accessor = model.accessors[primitive.indices];
                 const tinygltf::BufferView &bufferView = model.bufferViews[accessor.bufferView];
                 const tinygltf::Buffer &buffer = model.buffers[bufferView.buffer];
-                const short *thisIndices = reinterpret_cast<const short *>(&buffer.data[bufferView.byteOffset +
+                const auto *thisIndices = reinterpret_cast<const short *>(&buffer.data[bufferView.byteOffset +
                                                                                         accessor.byteOffset]);
                 for (size_t ii = 0; ii < accessor.count; ++ii) {
                     int a = thisIndices[ii] & 0xffff;
-//                    if (thisIndices[i] < 0) {
-//                        std::cout << "(" << thisIndices[i] << ")";
-//                    }
-//                    if (i < 30) {
-//                    std::cout << a << ",";
-//                    if ((i + 1) % 3 == 0) cout << endl;
-//                    }
                     indices.push_back(a);
                 }
 
                 for (const std::pair<const std::string, int> &attribute : primitive.attributes) {
-                    const tinygltf::Accessor &accessor = model.accessors[attribute.second];
-                    const tinygltf::BufferView &bufferView = model.bufferViews[accessor.bufferView];
-                    const tinygltf::Buffer &buffer = model.buffers[bufferView.buffer];
+                    const tinygltf::Accessor &accessor_p = model.accessors[attribute.second];
+                    const tinygltf::BufferView &bufferView_p = model.bufferViews[accessor_p.bufferView];
+                    const tinygltf::Buffer &buffer_p = model.buffers[bufferView_p.buffer];
                     // 这个attribute代表了点的位置POSITION
                     // 下面均copy and paste 来自 https://github.com/syoyo/tinygltf/issues/71
 
@@ -146,12 +147,12 @@ private:
                         // bufferView byteoffset + accessor byteoffset tells you where the actual position data is within the buffer. From there
                         // you should already know how the data needs to be interpreted.
                         // 拿来存放从buffer获取到的数组的，buffer从.uri
-                        const float *positions = reinterpret_cast<const float *>(&buffer.data[bufferView.byteOffset +
-                                                                                              accessor.byteOffset]);
+                        const auto *positions = reinterpret_cast<const float *>(&buffer_p.data[bufferView_p.byteOffset +
+                                                                                               accessor_p.byteOffset]);
                         // From here, you choose what you wish to do with this position data. In this case, we  will display it out.
                         // 存储读取出的数据，并print出前10个数据
-                        cout << accessor.count << endl;
-                        for (size_t ii = 0; ii < accessor.count; ++ii) {
+//                        cout << accessor_p.count << endl;
+                        for (size_t ii = 0; ii < accessor_p.count; ++ii) {
                             // Positions are Vec3 components, so for each vec3 stride, offset for x, y, and z.
 //                            if (i < 10) {
 //                                std::cout << "(" << positions[i * 3 + 0] << ", "// x
@@ -169,9 +170,9 @@ private:
                     if ((attribute.first == "NORMAL")) {
                         // bufferView byteoffset + accessor byteoffset tells you where the actual position data is within the buffer. From there
                         // you should already know how the data needs to be interpreted.
-                        const float *normals = reinterpret_cast<const float *>(&buffer.data[bufferView.byteOffset +
-                                                                                            accessor.byteOffset]);
-                        for (size_t ii = 0; ii < accessor.count; ++ii) {
+                        const auto *normals = reinterpret_cast<const float *>(&buffer_p.data[bufferView_p.byteOffset +
+                                                                                             accessor_p.byteOffset]);
+                        for (size_t ii = 0; ii < accessor_p.count; ++ii) {
 //                            if (i < 10) {
 //                                std::cout << "(" << normals[i * 3 + 0] << ", "// x
 //                                          << normals[i * 3 + 1] << ", " // y
@@ -189,9 +190,9 @@ private:
                     if ((attribute.first == "TANGENT")) {
                         // bufferView byteoffset + accessor byteoffset tells you where the actual position data is within the buffer. From there
                         // you should already know how the data needs to be interpreted.
-                        const float *tan = reinterpret_cast<const float *>(&buffer.data[bufferView.byteOffset +
-                                                                                        accessor.byteOffset]);
-                        for (size_t ii = 0; ii < accessor.count; ++ii) {
+                        const auto *tan = reinterpret_cast<const float *>(&buffer_p.data[bufferView_p.byteOffset +
+                                                                                         accessor_p.byteOffset]);
+                        for (size_t ii = 0; ii < accessor_p.count; ++ii) {
 //                            if (i < 10) {
 //                                std::cout << "(" << normals[i * 3 + 0] << ", "// x
 //                                          << normals[i * 3 + 1] << ", " // y
@@ -209,9 +210,9 @@ private:
                     if ((attribute.first == "TEXCOORD_0")) {
                         // bufferView byteoffset + accessor byteoffset tells you where the actual position data is within the buffer. From there
                         // you should already know how the data needs to be interpreted.
-                        const float *texc = reinterpret_cast<const float *>(&buffer.data[bufferView.byteOffset +
-                                                                                         accessor.byteOffset]);
-                        for (size_t ii = 0; ii < accessor.count; ++ii) {
+                        const auto *texc = reinterpret_cast<const float *>(&buffer_p.data[bufferView_p.byteOffset +
+                                                                                          accessor_p.byteOffset]);
+                        for (size_t ii = 0; ii < accessor_p.count; ++ii) {
 //                            if (i < 10) {
 //                                std::cout << "(" << texc[i * 3 + 0] << ", "// x
 //                                          << texc[i * 3 + 1] << ")" // y
@@ -231,12 +232,13 @@ private:
                 vertex.Position = pos.at(ii);
                 vertex.Normal = normal.at(ii);
                 vertex.TexCoords = texcoord.at(ii);
-                vertex.Tangent = tangent.at(ii);
                 vertices.push_back(vertex);
             }
+//            cout << "vertex count: "<<vertices.size() << endl;
+//            cout << "mesh count: "<<indices.size() << endl;
             Mesh thisMesh(vertices, indices, textures);
             meshes.emplace_back(thisMesh);
-            cout<<"Push one mesh"<<endl;
+//            cout << "Push one mesh" << endl;
         }
     }
 };
