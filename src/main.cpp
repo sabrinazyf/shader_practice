@@ -121,11 +121,11 @@ int main() {
     while (!glfwWindowShouldClose(window)) {
 //        lightPos = glm::vec3(1.2f, 1.0f, -2.0f);
 //        lightPos = ActionListener::camera.Position;
-        lightPos.x = cos(glfwGetTime()) * 2.0f;
+        lightPos.x = cos(glfwGetTime()) * 4.0f;
 //        lightPos.x = 1.2f;
 //        lightPos.y = sin(glfwGetTime()*1.2f);
         lightPos.y = 5.0f;
-        lightPos.z = sin(glfwGetTime()) * 2.0f;
+        lightPos.z = sin(glfwGetTime()) * 4.0f;
 
         glm::vec3 lightColor = glm::vec3(1.0f);
 
@@ -225,7 +225,7 @@ void setDefferedBuffer(unsigned int &gPositionDepth, unsigned int &gNormal, unsi
     // normal color buffer
     glGenTextures(1, &gNormal);
     glBindTexture(GL_TEXTURE_2D, gNormal);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB16F, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, gNormal, 0);
@@ -233,7 +233,7 @@ void setDefferedBuffer(unsigned int &gPositionDepth, unsigned int &gNormal, unsi
     // color + specular color buffer
     glGenTextures(1, &gAlbedoSpec);
     glBindTexture(GL_TEXTURE_2D, gAlbedoSpec);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, gAlbedoSpec, 0);
@@ -325,7 +325,7 @@ void drawPlane(Shader_m &planeShader,
 //        pearl	0.25	0.20725	0.20725	1	0.829	0.829	0.296648	0.296648	0.296648	0.088
     planeShader.setVec3("material.diffuse", 1.0f, 0.829f, 0.829f);
     planeShader.setVec3("material.specular", 0.296648f, 0.296648f, 0.296648f);
-    planeShader.setFloat("material.shininess", 0.25f * 128);
+    planeShader.setFloat("material.shininess", 0.0078125f * 128);
 
     planeShader.setMat4("projection", projection);
     planeShader.setMat4("view", view);

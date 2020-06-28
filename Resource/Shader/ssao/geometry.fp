@@ -35,6 +35,7 @@ void main()
     gPositionDepth.a = gl_FragCoord.z;
     // also store the per-fragment normals into the gbuffer
     gNormal = normalize(Normal);
+//    gNormal = Normal;
     // and the diffuse per-fragment color
     gAlbedoSpec.rgb = material.diffuse.rgb;
     // store specular intensity in gAlbedoSpec's alpha component

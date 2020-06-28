@@ -20,21 +20,31 @@ void main()
 {
     vec3 FragPos = texture(gPositionDepth, TexCoords).rgb;
     vec3 Normal = texture(gNormal, TexCoords).rgb;
-    vec3 Diffuse = texture(gAlbedoSpec, TexCoords).rgb;
+    vec4 Diffuse = texture(gAlbedoSpec, TexCoords);
 
     // Then calculate lighting as usual
-    vec3 viewDir  = normalize(-FragPos); // Viewpos is (0.0.0)
+    vec3 viewDir  = normalize(viewPos - FragPos); // Viewpos is (0.0.0)
     // Diffuse
     vec3 lightDir = normalize(light.position - FragPos);
-    vec3 diffuse = max(dot(Normal, lightDir), 0.0) * Diffuse * light.diffuse;
-    // Specular
-    vec3 halfwayDir = normalize(lightDir + viewDir);
-    float spec = pow(max(dot(Normal, halfwayDir), 0.0), texture(gAlbedoSpec, TexCoords).a);
-    vec3 specular = light.diffuse * spec;
-    // Attenuation
-    vec3 lighting = diffuse;
+//    vec3 diffuse = max(dot(Normal, lightDir), 0.0) * Diffuse * light.diffuse;
+//    // Specular
+//    vec3 halfwayDir = normalize(lightDir + viewDir);
+//    float spec = pow(max(dot(Normal, halfwayDir), 0.0), texture(gAlbedoSpec, TexCoords).a);
+//    vec3 specular = light.diffuse * spec;
+//    // Attenuation
+//    vec3 lighting = diffuse;
+    vec3 norm = normalize(Normal);
+    float diff = max(dot(norm, lightDir), 0.0);
+    vec3 diffuse = 0.9 * light.diffuse * (diff * Diffuse.xyz) + 0.1;
+    vec3 reflectDir = reflect(-lightDir, norm);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), Diffuse.a);
+    vec3 specular = light.specular * (spec * Diffuse.xyz);
+    vec3 result = diffuse + specular;
+    FragColor = vec4(norm, 1.0);
 
-    FragColor = vec4(lighting, 1.0);
+
+
+    FragColor = vec4(result, 1.0);
 
 
 //    vec3 FragPos = texture(gPositionDepth, TexCoords).rgb;
