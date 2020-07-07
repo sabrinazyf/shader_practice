@@ -23,9 +23,11 @@ void drawPlane(Shader_m &planeShader, GLTFModel &dragonModel, bool isShadow);
 
 void setShadowBuffer(unsigned int &depthMapFBO, unsigned int &depthMap);
 
+unsigned int loadCubemap(vector<std::string> faces);
 
 void renderQuad();
 
+unsigned int makeSkybox(Shader_m &skyboxShader, unsigned int skyboxVAO);
 
 void setDefferedBuffer(unsigned int &gPosition, unsigned int &gNormal, unsigned int &gAlbedoSpec);
 
@@ -94,6 +96,7 @@ int main() {
     Shader_m geometryPass("../Resource/Shader/ssao/geometry.vp", "../Resource/Shader/ssao/geometry.fp");
     Shader_m lightingPass("../Resource/Shader/ssao/light.vp", "../Resource/Shader/ssao/light.fp");
     Shader_m shadowPass("../Resource/Shader/ssao/shadow.vp", "../Resource/Shader/ssao/shadow.fp");
+    Shader_m skyboxShader("../Resource/Shader/skybox/skybox.vp", "../Resource/Shader/skybox/skybox.fp");
 
     unsigned int depthMapFBO;
     // configure g-buffer framebuffer
@@ -102,7 +105,7 @@ int main() {
     glGenFramebuffers(1, &gBuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
 
-    unsigned int gPositionDepth, gNormal, gAlbedoSpec, gShadowDepth;
+    unsigned int gPositionDepth, gNormal, gAlbedoSpec, gShadowDepth, skyboxVAO;
     setDefferedBuffer(gPositionDepth, gNormal, gAlbedoSpec);
 
     lightingPass.use();
@@ -111,6 +114,8 @@ int main() {
     lightingPass.setInt("gAlbedoSpec", 2);
 
     setShadowBuffer(depthMapFBO, gShadowDepth);
+
+    unsigned int cubemapTexture = makeSkybox(skyboxShader, skyboxVAO);
 
     // render loop
     // -----------
@@ -191,6 +196,7 @@ int main() {
         geometryPass.setMat4("lightSpaceMatrix", lightSpaceMatrix);
         drawDragon(geometryPass, dragonModel, false);
         drawPlane(geometryPass, dragonModel, false);
+
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
         lightingPass.use();
@@ -229,7 +235,19 @@ int main() {
         // depth buffer in another shader stage (or somehow see to match the default framebuffer's internal format with the FBO's internal format).
         glBlitFramebuffer(0, 0, SCR_WIDTH, SCR_HEIGHT, 0, 0, SCR_WIDTH, SCR_HEIGHT, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
+        // draw skybox as last
+        glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
+        skyboxShader.use();
+        view = glm::mat4(glm::mat3(view)); // remove translation from the view matrix
+        skyboxShader.setMat4("view", view);
+        skyboxShader.setMat4("projection", projection);
+        // skybox cube
+        glBindVertexArray(skyboxVAO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
+        glDepthFunc(GL_LESS); // set depth function back to default
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -398,4 +416,104 @@ void renderQuad() {
     glBindVertexArray(quadVAO);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glBindVertexArray(0);
+}
+
+unsigned int makeSkybox(Shader_m &skyboxShader, unsigned int skyboxVAO){
+    float skyboxVertices[] = {
+            // positions
+            -1.0f,  1.0f, -1.0f,
+            -1.0f, -1.0f, -1.0f,
+            1.0f, -1.0f, -1.0f,
+            1.0f, -1.0f, -1.0f,
+            1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f,
+
+            -1.0f, -1.0f,  1.0f,
+            -1.0f, -1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f, -1.0f,
+            -1.0f,  1.0f,  1.0f,
+            -1.0f, -1.0f,  1.0f,
+
+            1.0f, -1.0f, -1.0f,
+            1.0f, -1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,
+            1.0f,  1.0f, -1.0f,
+            1.0f, -1.0f, -1.0f,
+
+            -1.0f, -1.0f,  1.0f,
+            -1.0f,  1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,
+            1.0f, -1.0f,  1.0f,
+            -1.0f, -1.0f,  1.0f,
+
+            -1.0f,  1.0f, -1.0f,
+            1.0f,  1.0f, -1.0f,
+            1.0f,  1.0f,  1.0f,
+            1.0f,  1.0f,  1.0f,
+            -1.0f,  1.0f,  1.0f,
+            -1.0f,  1.0f, -1.0f,
+
+            -1.0f, -1.0f, -1.0f,
+            -1.0f, -1.0f,  1.0f,
+            1.0f, -1.0f, -1.0f,
+            1.0f, -1.0f, -1.0f,
+            -1.0f, -1.0f,  1.0f,
+            1.0f, -1.0f,  1.0f
+    };
+    unsigned int skyboxVBO;
+    glGenVertexArrays(1, &skyboxVAO);
+    glGenBuffers(1, &skyboxVBO);
+    glBindVertexArray(skyboxVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    vector<std::string> faces
+            {
+                    "../Resource/Skybox/river/right.jpg",
+                    "../Resource/Skybox/river/left.jpg",
+                    "../Resource/Skybox/river/top.jpg",
+                    "../Resource/Skybox/river/bottom.jpg",
+                    "../Resource/Skybox/river/front.jpg",
+                    "../Resource/Skybox/river/back.jpg"
+            };
+    unsigned int cubemapTexture = loadCubemap(faces);
+    skyboxShader.use();
+    skyboxShader.setInt("skybox", 0);
+    return cubemapTexture;
+}
+
+unsigned int loadCubemap(vector<std::string> faces)
+{
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+    int width, height, nrChannels;
+    for (unsigned int i = 0; i < faces.size(); i++)
+    {
+        unsigned char *data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+        if (data)
+        {
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+                         0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data
+            );
+            stbi_image_free(data);
+        }
+        else
+        {
+            std::cout << "Cubemap texture failed to load at path: " << faces[i] << std::endl;
+            stbi_image_free(data);
+        }
+    }
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+    return textureID;
 }
